@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 检查 .git 是否存在
+if [ ! -d ".git" ]; then
+    echo "❌ 你还没有初始化 Git 仓库！"
+    exit 1
+fi
+
+# 检查是否存在 hello.txt
+if [ ! -f "hello.txt" ]; then
+    echo "❌ hello.txt 文件不存在！"
+    exit 1
+fi
+
+# 检查是否提交过 hello.txt
+commit_count=$(git log --oneline -- hello.txt | wc -l)
+if [ "$commit_count" -ge 1 ]; then
+    echo "✅ 恭喜！你成功提交了 hello.txt！这里是你的 flag："
+    cat /flag
+else
+    echo "❌ 你还没有提交 hello.txt！"
+    exit 1
+fi
