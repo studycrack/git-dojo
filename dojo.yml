@@ -2,7 +2,7 @@ id: git-basic
 
 name: git操作学习
 
-type: hidden
+type: elementary
 
 award:
   belt: Chansey
@@ -10,5 +10,5 @@ award:
 
 modules:
   - id: "commit"
-  - icon: Pikachu
+    icon: Pikachu
 
