@@ -5,14 +5,10 @@ name: git操作学习
 type: hidden
 
 award:
-
   belt: Chansey
-
   emoji: Chansey
 
 modules:
-
-  id: commit
-
-  icon: Pikachu
+  - id: "commit"
+  - icon: Pikachu
 
