@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+cd /tmp/repo || {
+  echo "[-] 无法进入 /tmp/repo 目录!"
+  exit 1
+}
+
+commit_count=$(git rev-list --count HEAD)
+
+if [ "$commit_count" -eq 2 ]; then
+    last_commit_files=$(git show --pretty="" --name-only HEAD)
+    if echo "$last_commit_files" | grep -q "part1.txt" \
+       && echo "$last_commit_files" | grep -q "part2.txt" \
+       && echo "$last_commit_files" | grep -q "part3.txt"; then
+        echo "[+] 恭喜！提交历史已整理成功！这里是你的 flag："
+        cat /flag
+        exit 0
+    else
+        echo "[-] 最后一次提交缺少必须的文件！"
+        exit 1
+    fi
+else
+    echo "[-] 提交总数不是 2 (必须是 initial commit + 合并后的提交)!"
+    exit 1
+fi
