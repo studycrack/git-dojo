@@ -1,34 +1,25 @@
 #!/bin/bash
 
-mkdir -p /tmp/repo
-
 if ! command -v git >/dev/null 2>&1; then
   apt update && apt install -y git
 fi
 
+sudo -u hacker bash -c '
+mkdir -p /tmp/repo
 cd /tmp/repo
-
-# 初始化仓库
-git init > /dev/null 2>&1
-git config user.name "pwnuser" > /dev/null 2>&1
-git config user.email "pwn@hust.edu.cn" > /dev/null 2>&1
-
-# initial commit
+git init
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
 echo "init" > init.txt
-git add init.txt > /dev/null 2>&1
-git commit -m "initial commit" > /dev/null 2>&1
-
-# add part1
+git add init.txt
+git commit -m "initial commit"
 echo "first part" > part1.txt
-git add part1.txt > /dev/null 2>&1
-git commit -m "add part1" > /dev/null 2>&1
-
-# add part2
+git add part1.txt
+git commit -m "add part1"
 echo "second part" > part2.txt
-git add part2.txt > /dev/null 2>&1
-git commit -m "add part2" > /dev/null 2>&1
-
-# add part3
+git add part2.txt
+git commit -m "add part2"
 echo "third part" > part3.txt
-git add part3.txt > /dev/null 2>&1
-git commit -m "add part3" > /dev/null 2>&1
+git add part3.txt
+git commit -m "add part3"
+'
