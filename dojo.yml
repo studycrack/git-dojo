@@ -1,14 +1,17 @@
-id: git-basic
+id: git
 
-name: git操作学习
+name: Git 学习
 
-type: elementary
+type: tools
 
 award:
   belt: Chansey
   emoji: Chansey
 
 modules:
-  - id: "commit"
+  - id: "git-basic"
+    icon: Pikachu
+
+  - id: "git-advanced"
     icon: Pikachu
 

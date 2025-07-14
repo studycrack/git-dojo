@@ -1,0 +1,6 @@
+name: Git 进阶操作
+
+challenges:
+  - id: "rebase"
+    name: 变基与整理
+    level: 5
