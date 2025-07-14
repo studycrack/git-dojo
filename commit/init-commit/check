@@ -3,25 +3,25 @@
 set -e
 
 cd /tmp/repo || {
-  echo "[x] 无法进入 /tmp/repo 目录!"
+  echo "[-] 无法进入 /tmp/repo 目录!"
   exit 1
 }
 
 # 检查 .git 目录
 if [ ! -d .git ]; then
-  echo "[x] 未在 /tmp/repo 中初始化 Git 仓库!"
+  echo "[-] 未在 /tmp/repo 中初始化 Git 仓库!"
   exit 1
 fi
 
 # 检查是否至少有一次提交
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
-  echo "[x] 没有提交记录!"
+  echo "[-] 没有提交记录!"
   exit 1
 fi
 
 # 检查 hello.txt 是否被跟踪
 if ! git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
-  echo "[x] 未正确提交 hello.txt!"
+  echo "[-] 未正确提交 hello.txt!"
   exit 1
 fi
 
