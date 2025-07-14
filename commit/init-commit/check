@@ -1,23 +1,26 @@
-#!/bin/bash
+#!/bin/sh
 
-# 检查 .git 是否存在
-if [ ! -d ".git" ]; then
-    echo "❌ 你还没有初始化 Git 仓库！"
-    exit 1
+cd /tmp/repo || exit 1
+
+# 检查 .git 目录
+if [ ! -d .git ]; then
+  echo "[x] 未在 /tmp/repo 中初始化 Git 仓库! "
+  exit 1
 fi
 
-# 检查是否存在 hello.txt
-if [ ! -f "hello.txt" ]; then
-    echo "❌ hello.txt 文件不存在！"
-    exit 1
+# 检查提交历史
+COMMIT_COUNT=$(git rev-list --count HEAD)
+if [ "$COMMIT_COUNT" -lt 1 ]; then
+  echo "[x] 没有提交记录! "
+  exit 1
 fi
 
-# 检查是否提交过 hello.txt
-commit_count=$(git log --oneline -- hello.txt | wc -l)
-if [ "$commit_count" -ge 1 ]; then
-    echo "✅ 恭喜！你成功提交了 hello.txt！这里是你的 flag："
-    cat /flag
-else
-    echo "❌ 你还没有提交 hello.txt！"
-    exit 1
+# 检查 hello.txt 是否被提交
+if ! git ls-files --error-unmatch hello.txt > /dev/null 2>&1; then
+  echo "[x] 未正确提交 hello.txt! "
+  exit 1
 fi
+
+# 全部通过
+echo "[+] 成功! 下面是你的flag: "
+cat /flag
