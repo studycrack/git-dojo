@@ -19,7 +19,7 @@ END
 
 repo=$PWD    
 # 1) story.txt 必须同时包含两行关键短语
-grep -q "A quick PATCH on main"    story.txt || { echo "❌ 缺少 PATCH 行"; exit 1; }
+grep -q "A quick PATCH on master"    story.txt || { echo "❌ 缺少 PATCH 行"; exit 1; }
 grep -q "An exciting FEATURE begins" story.txt || { echo "❌ 缺少 FEATURE 行"; exit 1; }
 
 # 2) HEAD 必须是 merge commit（两个父）
@@ -30,9 +30,9 @@ if [[ "$parents" -lt 3 ]]; then
 fi
 
 # 3) merge 的两个 parent 应分别源自 main & feature
-main_base=$(cat /challenge/main_base)
+master_base=$(cat /challenge/master_base)
 feature_tip=$(cat /challenge/feature_head)
-git merge-base --is-ancestor "$main_base" HEAD^1 2>/dev/null && \
+git merge-base --is-ancestor "$master_base" HEAD^1 2>/dev/null && \
 git merge-base --is-ancestor "$feature_tip" HEAD^2 2>/dev/null || {
   echo "❌ merge 父提交不符合预期，确认你是把 feature 合并进 main"
   exit 1

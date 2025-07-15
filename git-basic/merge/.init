@@ -16,7 +16,7 @@ git add story.txt
 git commit -q -m "Init story"
 git rev-parse HEAD
 ')
-echo "$MASTER_BASE" > /challenge/main_base
+echo "$MASTER_BASE" > /challenge/master_base
 
 # 保存 feature 分支 tip 以便校验
 FEATURE_HEAD=$(sudo -u hacker bash -c '
