@@ -7,3 +7,5 @@ challenges:
   - id: "history"
     name: 查找提交历史并回退
     level: 2
+  - id: "merge"
+    name: 分支冲突解决与合并
