@@ -3,25 +3,19 @@ if ! command -v git >/dev/null 2>&1; then
   apt update && apt install -y git
 fi
 
-sudo -u hacker bash -c '
-# 放在可写目录，避免卷覆盖
-REPO=/tmp/repo
-mkdir -p "$REPO"
-cd "$REPO"
-git init -q
-
-# 保证 git 有用户信息
-git config user.name  "pwnuser"
-git config user.email "pwn@college.edu"
-
-# ---- 正确版本 ----
-echo "The flag is safe" > answer.txt
-git add answer.txt
-git commit -q -m "Add correct answer"
-CORRECT_COMMIT=$(git rev-parse HEAD)
-'
 # 记录该提交，用于校验
-echo "$CORRECT_COMMIT" > /expected_commit  
+CORRECT_COMMIT=$(sudo -u hacker bash -c '
+  REPO=/tmp/repo
+  mkdir -p "$REPO"
+  cd "$REPO"
+  git init -q
+  git config user.name  "pwnuser"
+  git config user.email "pwn@college.edu"
+  echo "The flag is safe" > answer.txt
+  git add answer.txt
+  git commit -q -m "Add correct answer"
+  git rev-parse HEAD  # 直接输出
+')
 
 sudo -u hacker bash -c '
 # ---- 破坏版本 ----
