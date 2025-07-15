@@ -30,8 +30,8 @@ if [[ "$parents" -lt 3 ]]; then
 fi
 
 # 3) merge 的两个 parent 应分别源自 main & feature
-main_base=$(cat /challenge/level2/main_base)
-feature_tip=$(cat /challenge/level2/feature_head)
+main_base=$(cat /challenge/main_base)
+feature_tip=$(cat /challenge/feature_head)
 git merge-base --is-ancestor "$main_base" HEAD^1 2>/dev/null && \
 git merge-base --is-ancestor "$feature_tip" HEAD^2 2>/dev/null || {
   echo "❌ merge 父提交不符合预期，确认你是把 feature 合并进 main"
