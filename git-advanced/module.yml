@@ -3,4 +3,7 @@ name: Git 进阶操作
 challenges:
   - id: "rebase"
     name: 变基与整理
-    level: 5
+    level: 3
+  - id: "reflog"
+    name: 历史记录管理进阶
+    level: 2

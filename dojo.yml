@@ -10,8 +10,8 @@ award:
 
 modules:
   - id: "git-basic"
-    icon: Pikachu
+    icon: Abra
 
   - id: "git-advanced"
-    icon: Pikachu
+    icon: Abra
 
