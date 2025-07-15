@@ -8,7 +8,7 @@ git config user.name  "pwnuser"
 git config user.email "pwn@college.edu"
 git symbolic-ref --short HEAD
 ')
-
+echo "$default_branch" > /tmp/branch_commit
 
 # 保存当前提交 hash
 FLAG_COMMIT=$(
@@ -22,10 +22,12 @@ git rev-parse HEAD
 ')
 echo "$FLAG_COMMIT" > /challenge/expected_commit
 
+sudo -u hacker bash -c '
+default_branch=$(cat /tmp/branch_commit)
 REPO=/tmp/repo
 cd "$REPO"
 git branch -m feature-x
 git checkout -q -b "$default_branch"
 git branch -D feature-x > /dev/null 2>&1
-
+'
 
