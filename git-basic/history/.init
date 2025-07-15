@@ -25,6 +25,8 @@ echo "$CORRECT_COMMIT" > /expected_commit
 
 sudo -u hacker bash -c '
 # ---- 破坏版本 ----
+REPO=/tmp/repo
+cd "$REPO"
 echo "Oops, overwritten!" > answer.txt
 git add answer.txt
 git commit -q -m "Accidentally overwrite answer"
