@@ -28,6 +28,6 @@ REPO=/tmp/repo
 cd "$REPO"
 git branch -m feature-x
 git checkout -q -b "$default_branch"
-git branch -D feature-x > /dev/null 2>&1
+git branch -D feature-x 
 '
 
