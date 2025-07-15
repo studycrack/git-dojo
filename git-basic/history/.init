@@ -1,0 +1,41 @@
+#!/opt/pwn.college/bash
+if ! command -v git >/dev/null 2>&1; then
+  apt update && apt install -y git
+fi
+
+sudo -u hacker bash -c '
+# 放在可写目录，避免卷覆盖
+REPO=/tmp/repo
+mkdir -p "$REPO"
+cd "$REPO"
+git init -q
+
+# 保证 git 有用户信息
+git config user.name  "pwnuser"
+git config user.email "pwn@college.edu"
+
+# ---- 正确版本 ----
+echo "The flag is safe" > answer.txt
+git add answer.txt
+git commit -q -m "Add correct answer"
+'
+# 记录该提交，用于校验
+CORRECT_COMMIT=$(git rev-parse HEAD)
+echo "$CORRECT_COMMIT" > /expected_commit  
+
+sudo -u hacker bash -c '
+# ---- 破坏版本 ----
+echo "Oops, overwritten!" > answer.txt
+git add answer.txt
+git commit -q -m "Accidentally overwrite answer"
+
+# 结束后打印题目提示
+cat <<'EOF'
+📜 题目环境已生成！
+现在仓库的最新 commit 把 answer.txt 搞坏了，
+请用 git log / git diff 找到“Add correct answer”那一版，
+并让 **当前 HEAD 指向那次提交**（可 checkout 或 reset）。
+完成后在仓库目录执行：   /challenge/check
+EOF
+'
+

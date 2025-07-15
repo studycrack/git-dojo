@@ -4,3 +4,6 @@ challenges:
   - id: "init-commit"
     name: 初始化与提交文件
     level: 1
+  - id: "history"
+    name: 查找提交历史并回退
+    level: 2
