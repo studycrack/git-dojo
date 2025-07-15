@@ -1,10 +1,11 @@
 #!/opt/pwn.college/bash
 
 # 1. 准备“远程”——本机仓库
-sudo -u hacker bash -c '
+REMOTE=$(sudo -u hacker bash -c '
 REMOTE=/tmp/remote.git
-git init --bare "$REMOTE"  >/dev/null
-'
+git init --bare "$REMOTE" >/dev/null
+echo "$REMOTE"
+')
 # 2. 准备选手本地仓库
 TARGET=$(sudo -u hacker bash -c '
 REPO=/tmp/repo

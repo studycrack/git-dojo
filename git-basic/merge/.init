@@ -1,6 +1,6 @@
 #!/opt/pwn.college/bash
 
-# 记录 main HEAD 用于校验父辈
+# 记录 master HEAD 用于校验父辈
 MASTER_BASE=$(sudo -u hacker bash -c '
 REPO=/tmp/repo
 mkdir -p "$REPO"
@@ -30,7 +30,7 @@ git rev-parse HEAD
 ')
 echo "$FEATURE_HEAD" > /challenge/feature_head
 
-# --- 回到 main 并产生冲突行 ---
+# --- 回到 master 并产生冲突行 ---
 sudo -u hacker bash -c '
 REPO=/tmp/repo
 cd "$REPO"
