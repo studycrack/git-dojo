@@ -11,7 +11,6 @@ award:
 modules:
   - id: "git-basic"
     icon: Abra
-
   - id: "git-advanced"
     icon: Abra
 
