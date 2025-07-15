@@ -29,12 +29,12 @@ if [[ "$parents" -lt 3 ]]; then
   exit 1
 fi
 
-# 3) merge 的两个 parent 应分别源自 main & feature
+# 3) merge 的两个 parent 应分别源自 master & feature
 master_base=$(cat /challenge/master_base)
 feature_tip=$(cat /challenge/feature_head)
 git merge-base --is-ancestor "$master_base" HEAD^1 2>/dev/null && \
 git merge-base --is-ancestor "$feature_tip" HEAD^2 2>/dev/null || {
-  echo "❌ merge 父提交不符合预期，确认你是把 feature 合并进 main"
+  echo "❌ merge 父提交不符合预期，确认你是把 feature 合并进 master"
   exit 1
 }
 
