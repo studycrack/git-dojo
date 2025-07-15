@@ -20,14 +20,12 @@ git add secret.txt
 git commit -q -m "Add secret"
 git rev-parse HEAD
 ')
-echo "$FLAG_COMMIT" > challenge/expected_commit
+echo "$FLAG_COMMIT" > /challenge/expected_commit
 
-# 模拟删除分支
-sudo -u hacker bash -c '
 REPO=/tmp/repo
 cd "$REPO"
 git branch -m feature-x
 git checkout -q -b "$default_branch"
 git branch -D feature-x > /dev/null 2>&1
-'
+
 
