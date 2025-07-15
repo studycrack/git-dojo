@@ -6,9 +6,8 @@ git init -q "$REPO"
 cd "$REPO"
 git config user.name  "pwnuser"
 git config user.email "pwn@college.edu"
-git symbolic-ref --short HEAD
+git rev-parse --abbrev-ref HEAD
 ')
-echo "$default_branch" > /tmp/branch_commit
 
 # 保存当前提交 hash
 FLAG_COMMIT=$(
