@@ -23,11 +23,11 @@ git rev-parse HEAD
 echo "$FLAG_COMMIT" > /challenge/expected_commit
 
 sudo -u hacker bash -c '
-default_branch=$(cat /tmp/branch_commit)
+branch="$1"
 REPO=/tmp/repo
 cd "$REPO"
 git branch -m feature-x
 git checkout -q -b "$default_branch"
 git branch -D feature-x 
-'
+'bash "$default_branch"
 
