@@ -1,0 +1,23 @@
+#!/opt/pwn.college/bash
+
+# 1. 准备“远程”——本机仓库
+sudo -u hacker bash -c '
+REMOTE=/challenge/remote.git
+git init --bare "$REMOTE"  >/dev/null
+'
+# 2. 准备选手本地仓库
+TARGET=$(sudo -u hacker bash -c '
+REPO=/challenge/repo
+git init -q "$REPO"
+cd "$REPO"
+git config user.name  "pwnuser"
+git config user.email "pwn@college.edu"
+
+echo "push-me" > important.txt
+git add important.txt
+git commit -q -m "Init project"
+')
+# 3. 记录目标 commit 供校验
+echo "$TARGET" > /challenge/target_commit
+echo "$REMOTE" > /challenge/remote_path
+
