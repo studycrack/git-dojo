@@ -34,7 +34,7 @@ echo "$FEATURE_HEAD" > /feature_head
 sudo -u hacker bash -c '
 REPO=/tmp/repo
 cd "$REPO"
-git checkout -q $MAIN_BASE
+git checkout -q master
 echo "A quick PATCH on main" > story.txt           # 同一行再被覆盖
 git add story.txt
 git commit -q -m "Patch on main"
