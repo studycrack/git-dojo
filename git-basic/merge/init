@@ -1,0 +1,42 @@
+#!/opt/pwn.college/bash
+
+# 记录 main HEAD 用于校验父辈
+MAIN_BASE=$(sudo -u hacker bash -c '
+REPO=/tmp/repo
+mkdir -p "$REPO"
+cd "$REPO"
+git init -q
+
+git config user.name  "pwnuser"
+git config user.email "pwn@college.edu"
+
+# --- 初始提交 ---
+echo "Once upon a time" > story.txt
+git add story.txt
+git commit -q -m "Init story"
+git rev-parse HEAD
+')
+echo "$MAIN_BASE" > /main_base
+
+# 保存 feature 分支 tip 以便校验
+FEATURE_HEAD=$(sudo -u hacker bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+git checkout -q -b feature
+echo "An exciting FEATURE begins" > story.txt      # 同一行被覆盖
+git add story.txt
+git commit -q -m "Feature edit"
+git rev-parse HEAD
+')
+echo "$FEATURE_HEAD" > /feature_head
+
+# --- 回到 main 并产生冲突行 ---
+sudo -u hacker bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+git checkout -q $MAIN_BASE
+echo "A quick PATCH on main" > story.txt           # 同一行再被覆盖
+git add story.txt
+git commit -q -m "Patch on main"
+'
+
