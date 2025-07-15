@@ -18,6 +18,7 @@ git config user.email "pwn@college.edu"
 echo "push-me" > important.txt
 git add important.txt
 git commit -q -m "Init project"
+git rev-parse HEAD
 ')
 # 3. 记录目标 commit 供校验
 echo "$TARGET" > /challenge/target_commit
