@@ -2,12 +2,12 @@
 
 # 1. 准备“远程”——本机仓库
 sudo -u hacker bash -c '
-REMOTE=/challenge/remote.git
+REMOTE=/tmp/remote.git
 git init --bare "$REMOTE"  >/dev/null
 '
 # 2. 准备选手本地仓库
 TARGET=$(sudo -u hacker bash -c '
-REPO=/challenge/repo
+REPO=/tmp/repo
 git init -q "$REPO"
 cd "$REPO"
 git config user.name  "pwnuser"
