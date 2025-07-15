@@ -1,0 +1,33 @@
+#!/opt/pwn.college/bash
+
+default_branch=$(sudo -u hacker bash -c '
+REPO=/tmp/repo
+git init -q "$REPO"
+cd "$REPO"
+git config user.name  "pwnuser"
+git config user.email "pwn@college.edu"
+git symbolic-ref --short HEAD
+')
+
+
+# 保存当前提交 hash
+FLAG_COMMIT=$(
+sudo -u hacker bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+echo "The flag is safe" > secret.txt
+git add secret.txt
+git commit -q -m "Add secret"
+git rev-parse HEAD
+')
+echo "$FLAG_COMMIT" > challenge/expected_commit
+
+# 模拟删除分支
+sudo -u hacker bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+git branch -m feature-x
+git checkout -q -b "$default_branch"
+git branch -D feature-x > /dev/null 2>&1
+'
+
