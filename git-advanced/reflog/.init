@@ -1,25 +1,25 @@
 #!/opt/pwn.college/bash
 set -euo pipefail
 
-sudo -u hacker bash -c '
+# 1. 生成创建脚本内容（以 hacker 身份运行）
+cat > /tmp/gen_repo.sh <<'EOSCRIPT'
+#!/bin/bash
+set -euo pipefail
+
 REPO=/tmp/repo
 mkdir -p "$REPO"
 cd "$REPO"
 git init -q
-
 git config user.name  "pwnuser"
 git config user.email "pwn@college.edu"
 
-# 定义提交前缀和后缀
 prefixes=("update" "refactor" "add" "remove" "improve" "clean" "change" "optimize" "rework")
 suffixes=("" "note.txt" "test.txt")
 
-TOTAL_COMMITS= 10
-RESET_BACK_N=$((2 + RANDOM % 5))         # 倒数第 2～6 个提交
-SECRET_AT=$((TOTAL_COMMITS - RANDOM % (RESET_BACK_N)))  # secret 出现在 reset 之后
+TOTAL_COMMITS=10
+RESET_BACK_N=$((2 + RANDOM % 5))
+SECRET_AT=$((TOTAL_COMMITS - RANDOM % RESET_BACK_N))
 
-
-# 记录每个提交的 hash
 declare -a commits
 
 for ((i=0; i<TOTAL_COMMITS; i++)); do
@@ -32,21 +32,20 @@ for ((i=0; i<TOTAL_COMMITS; i++)); do
     file="file_${i}.txt"
     echo "$RANDOM" > "$file"
     git add "$file"
-
     prefix=${prefixes[$RANDOM % ${#prefixes[@]}]}
     suffix=${suffixes[$RANDOM % ${#suffixes[@]}]}
-    msg="$prefix $suffix"
-    git commit -q -m "$msg"
+    git commit -q -m "$prefix $suffix"
   fi
-
   commits+=("$(git rev-parse HEAD)")
 done
 
-# 执行 reset，丢弃末尾 $RESET_BACK_N 个提交（包含 secret 那条）
 RESET_TARGET=${commits[$((TOTAL_COMMITS - RESET_BACK_N - 1))]}
 git reset --hard "$RESET_TARGET"
-'
+EOSCRIPT
+
+# 2. 授权 + 执行
+chmod +x /tmp/gen_repo.sh
+sudo -u hacker bash /tmp/gen_repo.sh
+
 FLAG_COMMIT=$(cat /tmp/flag_commit)
 echo "$FLAG_COMMIT" > /challenge/flag_commit
-
-
