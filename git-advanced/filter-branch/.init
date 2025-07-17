@@ -1,0 +1,28 @@
+#!/opt/pwn.college/bash
+
+sudo -u hacker bash <<'EOF'
+
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+echo "Initial content" > readme.md
+git add readme.md
+git commit -m "Initial commit"
+
+echo "secret_password=123456" > passwords.txt
+git add passwords.txt
+git commit -m "Add sensitive passwords.txt"
+
+echo "More secrets" >> passwords.txt
+git add passwords.txt
+git commit -m "Update passwords.txt"
+
+echo "More content" >> readme.md
+git add readme.md
+git commit -m "Update readme"
+
+EOF

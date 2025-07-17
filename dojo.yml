@@ -5,12 +5,13 @@ name: Git 学习
 type: tools
 
 award:
-  belt: Chansey
-  emoji: Chansey
+  belt: Git
+  emoji: Git
 
 modules:
   - id: "git-basic"
-    icon: Abra
+    icon: 0076_Golem
+
   - id: "git-advanced"
-    icon: Abra
+    icon: 0077_Ponyta
 

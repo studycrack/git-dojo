@@ -1,0 +1,14 @@
+#!/opt/pwn.college/bash
+
+if [ -f /tmp/answer ]; then
+    if diff /tmp/answer /expected_answer >/dev/null; then
+        echo "[+] 正确！这是你的 flag："
+        cat /flag
+    else
+        echo "[-] 提交的 git 日志不正确，请再试一次！"
+        exit 1
+    fi
+else
+    echo "[-] 未找到 /tmp/answer 文件！"
+    exit 1
+fi
