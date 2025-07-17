@@ -1,4 +1,4 @@
-#!/opt/pwn.college/bash
+#!/bin/bash
 set -e
 
 # ---------- 美化输出 ----------
@@ -34,17 +34,19 @@ cat <<END | while read LINE; do echo "$LINE"; sleep 0.1; done
 END
 
 # ---------- 校验逻辑 ----------
-repo=$PWD
-expected=$(cat /challenge/expected_commit)
-current=$(git -C "$repo" rev-parse HEAD)
+expected=$(cat /challenge/flag_commit)
+current=$(git rev-parse HEAD)
 
-if [[ "$current" == "$expected" ]]; then
-    echo "✅ 恭喜！你成功恢复了丢失的提交。"
+# 允许 HEAD 指向目标提交（或处于该提交之上）
+if [[ "$current" == "$expected" ]] || git merge-base --is-ancestor "$expected" HEAD; then
+  if [[ -f secret.txt && $(cat secret.txt) == "The flag is safe" ]]; then
+    echo "✅ 成功恢复丢失提交！"
     echo -n "你的 flag 是："
     cat /flag
-else
-    echo "❌ 当前 HEAD 不是丢失提交，请继续努力！"
-    echo "(提示：git reflog, git checkout <hash>, 或 git reset --hard <hash>)"
-    exit 1
+    exit 0
+  fi
 fi
+
+echo "❌ 还未恢复正确提交，请使用 git reflog 查找并 checkout 或 reset 到正确版本"
+exit 1
 

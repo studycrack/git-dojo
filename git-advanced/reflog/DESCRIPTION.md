@@ -1,14 +1,21 @@
-欢迎来到 Git 学习之旅的第四关！
+# Git 关卡 · Reflog 深度恢复挑战
 
-在本关中，你将练习如何恢复被误删的提交。
+> **目标：** 使用 `git reflog` 找回一条被 reset 丢失的提交。
 
-初始化时，你会克隆一个仓库并进入其目录。此时仓库中只有 `master` 分支，而且最近一次提交看起来“空空如也”。
+## 背景
 
-**具体任务：**
+你曾提交过一个重要文件 `secret.txt`，但在后续提交和一次 reset 操作中被意外丢弃。
 
-1.使用 git reflog 找到那条被误删的提交记录。
+现在 `git log` 中已经找不到相关记录。
 
-2.将该提交恢复为仓库的最新状态，使其重新成为当前分支的 **HEAD**。
+请你：
 
-完成恢复后，运行 `/challenge/check` 脚本即可获得 flag！
+1. 使用 `git reflog` 查看 HEAD 历史变动
+2. 找到那次添加 `secret.txt` 的提交
+3. 使用 `git checkout` 或 `git reset --hard` 恢复到该提交
+
+完成后执行：
+
+```bash
+/challenge/check
 
