@@ -46,6 +46,7 @@ EOSCRIPT
 # 2. 授权 + 执行
 chmod +x /tmp/gen_repo.sh
 sudo -u hacker bash /tmp/gen_repo.sh
+rm /tmp/gen_repo.sh
 
 FLAG_COMMIT=$(cat /tmp/flag_commit)
 echo "$FLAG_COMMIT" > /challenge/flag_commit
