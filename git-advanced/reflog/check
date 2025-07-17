@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/opt/pwn.college/bash
 set -e
 
 # ---------- 美化输出 ----------
