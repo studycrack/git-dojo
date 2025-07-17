@@ -28,7 +28,7 @@ END
 # ---------- 校验逻辑 ----------
 
 repo=$PWD                       # 必须在仓库目录运行
-expected=$(cat /expected_commit)
+expected=$(cat /challenge/expected_commit)
 current=$(git rev-parse HEAD)
 
 if [[ "$current" == "$expected" ]]; then

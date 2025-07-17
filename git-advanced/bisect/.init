@@ -61,11 +61,13 @@ sudo -u hacker bash /tmp/gen_repo.sh
 rm /tmp/gen_repo.sh
 
 GOOD=$(cat /tmp/good_commit)
+rm /tmp/good_commit
 echo "$GOOD" > /challenge/good_commit
 chown root:root /challenge/good_commit
 chmod 400 /challenge/good_commit
 
 BUG=$(cat /tmp/bug_commit)
+rm /tmp/bug_commit
 echo "$BUG" > /challenge/bug_commit
 chown root:root /challenge/bug_commit
 chmod 400 /challenge/bug_commit
