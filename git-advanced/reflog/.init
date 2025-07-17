@@ -2,7 +2,7 @@
 set -euo pipefail
 
 sudo -u hacker bash -c '
-REPO=/home/pwn/repo
+REPO=/tmp/repo
 mkdir -p "$REPO"
 cd "$REPO"
 git init -q
