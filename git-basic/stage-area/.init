@@ -1,0 +1,32 @@
+#!/opt/pwn.college/bash
+
+sudo -u hacker bash <<'EOF'
+
+# 创建并初始化 Git 仓库
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+# 设置用户名和邮箱
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+echo "Initial content" > readme.md
+git add readme.md
+git commit -m "Initial commit"
+
+random_str=$(head -c 16 /dev/urandom | base64)
+echo -e "# Auto-generated app\nprint(\"${random_str}\")" > /tmp/app.py
+cp /tmp/app.py /tmp/repo/app.py
+
+# 添加到暂存区，但 **不提交**
+git add app.py
+
+# 删除工作区的文件（模拟误删）
+rm app.py
+
+EOF
+
+mv /tmp/app.py /expected_app.py
+chown root:root /expected_app.py
+chmod 400 /expected_app.py
