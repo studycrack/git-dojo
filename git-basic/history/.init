@@ -16,7 +16,10 @@ CORRECT_COMMIT=$(sudo -u hacker bash -c '
   git commit -q -m "Add correct answer"
   git rev-parse HEAD  # 直接输出
 ')
-echo "$CORRECT_COMMIT" > /expected_commit
+echo "$CORRECT_COMMIT" > /challenge/expected_commit
+chown root:root /challenge/fexpected_commit
+chmod 400 /challenge/expected_commit
+
 sudo -u hacker bash -c '
 # ---- 破坏版本 ----
 REPO=/tmp/repo
