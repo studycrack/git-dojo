@@ -1,32 +1,52 @@
 #!/opt/pwn.college/bash
+set -euo pipefail
 
-default_branch=$(sudo -u hacker bash -c '
-REPO=/tmp/repo
-git init -q "$REPO"
+sudo -u hacker bash -c '
+REPO=/home/pwn/repo
+mkdir -p "$REPO"
 cd "$REPO"
+git init -q
+
 git config user.name  "pwnuser"
 git config user.email "pwn@college.edu"
-git rev-parse --abbrev-ref HEAD
-')
 
-# 保存当前提交 hash
-FLAG_COMMIT=$(
-sudo -u hacker bash -c '
-REPO=/tmp/repo
-cd "$REPO"
-echo "The flag is safe" > secret.txt
-git add secret.txt
-git commit -q -m "Add secret"
-git rev-parse HEAD
-')
-echo "$FLAG_COMMIT" > /challenge/expected_commit
+# 定义提交前缀和后缀
+prefixes=("update" "refactor" "add" "remove" "improve" "clean" "change" "optimize" "rework")
+suffixes=("" "note.txt" "test.txt")
 
-sudo -u hacker bash -c '
-default_branch="$1"
-REPO=/tmp/repo
-cd "$REPO"
-git branch -m feature-x
-git checkout -q -b "$default_branch"
-git branch -D feature-x 
-'bash "$default_branch"
+TOTAL_COMMITS= 10
+RESET_BACK_N=$((2 + RANDOM % 5))         # 倒数第 2～6 个提交
+SECRET_AT=$((TOTAL_COMMITS - RANDOM % (RESET_BACK_N)))  # secret 出现在 reset 之后
+
+
+# 记录每个提交的 hash
+declare -a commits
+
+for ((i=0; i<TOTAL_COMMITS; i++)); do
+  if [[ "$i" -eq "$SECRET_AT" ]]; then
+    echo "The flag is safe" > secret.txt
+    git add secret.txt
+    git commit -q -m "add secret.txt"
+    git rev-parse HEAD > /tmp/flag_commit
+  else
+    file="file_${i}.txt"
+    echo "$RANDOM" > "$file"
+    git add "$file"
+
+    prefix=${prefixes[$RANDOM % ${#prefixes[@]}]}
+    suffix=${suffixes[$RANDOM % ${#suffixes[@]}]}
+    msg="$prefix $suffix"
+    git commit -q -m "$msg"
+  fi
+
+  commits+=("$(git rev-parse HEAD)")
+done
+
+# 执行 reset，丢弃末尾 $RESET_BACK_N 个提交（包含 secret 那条）
+RESET_TARGET=${commits[$((TOTAL_COMMITS - RESET_BACK_N - 1))]}
+git reset --hard "$RESET_TARGET"
+'
+FLAG_COMMIT=$(cat /tmp/flag_commit)
+echo "$FLAG_COMMIT" > /challenge/flag_commit
+
 
