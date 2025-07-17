@@ -64,4 +64,4 @@ GOOD=$(cat /tmp/good_commit)
 echo "$GOOD" > /challenge/good_commit
 
 BUG=$(cat /tmp/good_commit)
-echo "$BUG" > /challenge/good_commit
+echo "$BUG" > /challenge/bug_commit
