@@ -43,5 +43,11 @@ if [ -n "$(sudo -u hacker git status --porcelain)" ]; then
     exit 1
 fi
 
+commit_count=$(sudo -u hacker git rev-list --count HEAD)
+if [ "$commit_count" -ne 2 ]; then
+    echo "[-] master 分支上的提交数量不是 2，不要使用 rebase 或其他操作"
+    exit 1
+fi
+
 echo "[+] cherry-pick 操作成功，app.py 内容正确，这是你的 flag："
 cat /flag
