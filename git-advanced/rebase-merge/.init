@@ -1,0 +1,34 @@
+#!/opt/pwn.college/bash
+
+sudo -u hacker bash <<'EOF'
+
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+# 创建 master 分支提交
+echo "Line 1" > file.txt
+git add file.txt
+git commit -m "Initial commit on master"
+
+echo "Line 2" >> file.txt
+git commit -am "Update file on master"
+
+# 创建 feature 分支
+git checkout -b feature
+
+echo "Line 3 from feature" >> file.txt
+git commit -am "Add feature line 3"
+
+echo "Line 4 from feature" >> file.txt
+git commit -am "Add feature line 4"
+
+echo "Line 5 from feature" >> file.txt
+git commit -am "Add feature line 5"
+
+git checkout master
+
+EOF
