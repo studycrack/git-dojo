@@ -1,0 +1,48 @@
+#!/opt/pwn.college/bash
+
+cd /tmp/repo
+
+# 必须处于 master 分支
+current_branch=$(sudo -u hacker git symbolic-ref --short HEAD)
+if [[ "$current_branch" != "master" ]]; then
+    echo "[-] 你不在 master 分支上，请将结果合并回 master 分支"
+    exit 1
+fi
+
+# 检查是否包含 feature 分支的提交信息（假设通过提交信息匹配）
+if ! sudo -u hacker git log --oneline | grep -q "Add feature line 3"; then
+    echo "[-] 缺少 feature 分支上的提交"
+    exit 1
+fi
+
+if ! sudo -u hacker git log --oneline | grep -q "Add feature line 4"; then
+    echo "[-] 缺少 feature 分支上的提交"
+    exit 1
+fi
+
+if ! sudo -u hacker git log --oneline | grep -q "Add feature line 5"; then
+    echo "[-] 缺少 feature 分支上的提交"
+    exit 1
+fi
+
+# 检查是否为线性历史（无 merge commit）
+if sudo -u hacker git log --merges | grep .; then
+    echo "[-] 发现 merge commit，请使用 rebase 代替 merge"
+    exit 1
+fi
+
+# 检查文件最终内容是否完整
+expected="Line 1
+Line 2
+Line 3 from feature
+Line 4 from feature
+Line 5 from feature"
+actual=$(cat /tmp/repo/file.txt)
+
+if [[ "$actual" != "$expected" ]]; then
+    echo "[-] file.txt 内容不正确，请确保合并顺序和内容正确"
+    exit 1
+fi
+
+echo "[+] 恭喜你成功完成了线性合并任务，这是你的 flag："
+cat /flag
