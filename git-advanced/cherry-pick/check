@@ -1,0 +1,47 @@
+#!/opt/pwn.college/bash
+
+REPO_DIR="/tmp/repo"
+TARGET_FILE="app.py"
+EXPECTED_FILE="/expected_app.py"
+
+# 确保仓库存在
+if [ ! -d "$REPO_DIR/.git" ]; then
+    echo "[-] Git 仓库不存在，或 .git 文件夹被删除"
+    exit 1
+fi
+
+cd "$REPO_DIR"
+
+# 检查当前分支是 master
+current_branch=$(sudo -u hacker git symbolic-ref --short HEAD)
+if [[ "$current_branch" != "master" ]]; then
+    echo "[-] 当前不在 master 分支，请切换回 master 分支"
+    exit 1
+fi
+
+# 检查是否有 merge commit（不允许）
+if sudo -u hacker git log --oneline --merges | grep -q .; then
+    echo "[-] 检测到 merge commit，本关仅允许 cherry-pick！"
+    exit 1
+fi
+
+# 检查是否包含正确的提交（通过提交信息匹配）
+if ! sudo -u hacker git log --oneline | grep -q "feat: add run() function"; then
+    echo "[-] 未找到包含 run() 函数的提交，请确保正确 cherry-pick"
+    exit 1
+fi
+
+# 检查 app.py 内容是否匹配
+if ! diff -q "$TARGET_FILE" "$EXPECTED_FILE" > /dev/null; then
+    echo "[-] app.py 内容不符合预期，请正确 cherry-pick 目标提交"
+    exit 1
+fi
+
+# 检查是否有未提交改动
+if [ -n "$(sudo -u hacker git status --porcelain)" ]; then
+    echo "[-] 仓库中有未提交的改动，请保持工作区干净"
+    exit 1
+fi
+
+echo "[+] cherry-pick 操作成功，app.py 内容正确，这是你的 flag："
+cat /flag
