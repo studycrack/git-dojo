@@ -1,0 +1,52 @@
+#!/opt/pwn.college/bash
+
+# 创建仓库并初始化
+sudo -u hacker bash <<'EOF'
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+# 设置身份
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+# 创建 master 分支并提交初始版本
+echo 'def init():' > app.py
+echo '    print("Initializing...")' >> app.py
+git add app.py
+git commit -m "Initial commit on master"
+
+# 创建 feature 分支
+git checkout -b feature
+
+# 提交 1：修改文档
+echo "# Project README" > README.md
+git add README.md
+git commit -m "docs: add README"
+
+# 提交 2：添加目标函数 run()
+echo '' >> app.py
+echo 'def run():' >> app.py
+echo '    print("Running app...")' >> app.py
+git add app.py
+git commit -m "feat: add run() function"
+
+# 提交 3：测试脚本
+echo "print('test')" > test.py
+git add test.py
+git commit -m "test: add temporary test script"
+
+# 保存 run() 函数版本用于 check
+git show HEAD~1:app.py > /tmp/app.py
+EOF
+
+# 以 root 权限保存为 expected 文件
+mv /tmp/app.py /expected_app.py
+chown root:root /expected_app.py
+chmod 400 /expected_app.py
+
+# 回到 master 分支
+sudo -u hacker bash <<'EOF'
+cd /tmp/repo
+git checkout master
+EOF
