@@ -17,6 +17,10 @@ challenges:
     name: 清理敏感文件
     level: 2
 
+  - id: "cherry-pick"
+    name: 迁移提交记录
+    level: 2
+
   - id: "bisect"
     name: 定位代码bug引入
     level: 4
