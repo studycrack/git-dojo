@@ -8,10 +8,10 @@ if [ ! -d /tmp/repo ]; then
     exit 1
 fi
 
-commit_count=$(git rev-list --count HEAD)
+commit_count=$(sudo -u hacker git rev-list --count HEAD)
 
 if [ "$commit_count" -eq 2 ]; then
-    last_commit_files=$(git show --pretty="" --name-only HEAD)
+    last_commit_files=$(sudo -u hacker git show --pretty="" --name-only HEAD)
     if echo "$last_commit_files" | grep -q "part1.txt" \
        && echo "$last_commit_files" | grep -q "part2.txt" \
        && echo "$last_commit_files" | grep -q "part3.txt"; then
