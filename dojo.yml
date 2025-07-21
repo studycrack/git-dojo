@@ -5,8 +5,9 @@ name: Git 学习
 type: tools
 
 award:
-  belt: Git
   emoji: Git
+
+comparator: 888
 
 modules:
   - id: "git-basic"
@@ -14,4 +15,3 @@ modules:
 
   - id: "git-advanced"
     icon: 0077_Ponyta
-
