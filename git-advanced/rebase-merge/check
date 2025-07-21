@@ -10,17 +10,12 @@ if [[ "$current_branch" != "master" ]]; then
 fi
 
 # 检查是否包含 feature 分支的提交信息（假设通过提交信息匹配）
-if ! sudo -u hacker git log --oneline | grep -q "Add feature line 3"; then
+if ! sudo -u hacker git log --oneline | grep -q "Add line 3 on feature"; then
     echo "[-] 缺少 feature 分支上的提交"
     exit 1
 fi
 
-if ! sudo -u hacker git log --oneline | grep -q "Add feature line 4"; then
-    echo "[-] 缺少 feature 分支上的提交"
-    exit 1
-fi
-
-if ! sudo -u hacker git log --oneline | grep -q "Add feature line 5"; then
+if ! sudo -u hacker git log --oneline | grep -q "Add line 4 on feature"; then
     echo "[-] 缺少 feature 分支上的提交"
     exit 1
 fi
@@ -35,8 +30,7 @@ fi
 expected="Line 1
 Line 2
 Line 3 from feature
-Line 4 from feature
-Line 5 from feature"
+Line 4 from feature"
 actual=$(cat /tmp/repo/file.txt)
 
 if [[ "$actual" != "$expected" ]]; then

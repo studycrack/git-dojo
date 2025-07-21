@@ -21,14 +21,15 @@ git commit -am "Update file on master"
 git checkout -b feature
 
 echo "Line 3 from feature" >> file.txt
-git commit -am "Add feature line 3"
+git commit -am "Add line 3 on feature"
 
 echo "Line 4 from feature" >> file.txt
-git commit -am "Add feature line 4"
-
-echo "Line 5 from feature" >> file.txt
-git commit -am "Add feature line 5"
+git commit -am "Add line 4 on feature"
 
 git checkout master
+
+echo "file2" >> file2.txt
+git add file2.txt
+git commit -m "Update file2 on master"
 
 EOF
