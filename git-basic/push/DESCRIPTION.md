@@ -6,7 +6,7 @@
 
 **具体任务：**
 
-1. 查找并添加远程仓库（本地模拟）。
+1. 查找并添加远程仓库（命名为origin）。
 
 2. 推送当前分支到远程
 
@@ -17,7 +17,7 @@
 - 成功推送后，本地 `master` 应显示上游：  
 
   ```bash
-  git status   # On branch master, your branch is up to date with 'origin/master'.
+  On branch master, your branch is up to date with 'origin/master'.
   ```
   
 完成后，运行： `/challenge/check` 即可验证并获得本关的 flag！
