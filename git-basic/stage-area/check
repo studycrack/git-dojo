@@ -26,7 +26,7 @@ if ! diff -q app.py /expected_app.py >/dev/null; then
 fi
 
 # 检查是否提交了包含 app.py 的提交
-if ! git log --pretty=format: --name-only | grep -q "^app.py$"; then
+if ! sudo -u hacker git log --pretty=format: --name-only | grep -q "^app.py$"; then
     echo "[-] 没有成功提交 app.py！"
     exit 1
 fi

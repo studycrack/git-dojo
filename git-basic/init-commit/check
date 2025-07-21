@@ -15,13 +15,13 @@ if [ ! -d .git ]; then
 fi
 
 # 检查是否至少有一次提交
-if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
+if ! sudo -u hacker git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 没有提交记录!"
   exit 1
 fi
 
 # 检查 hello.txt 是否被跟踪
-if ! git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
+if ! sudo -u hacker git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
   echo "[-] 未正确提交 hello.txt!"
   exit 1
 fi
