@@ -4,10 +4,5 @@ name: git操作学习
 
 type: elementary
 
-award:
-  belt: Chansey
-  emoji: Chansey
-
 modules:
   - id: "commit"
-    icon: Pikachu
