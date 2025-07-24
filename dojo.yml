@@ -7,7 +7,5 @@ type: tools
 award:
   emoji: 💻
 
-comparator: 888
-
 modules:
   - id: "git-basic"
