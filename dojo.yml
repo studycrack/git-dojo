@@ -1,8 +1,11 @@
 id: git-basic
 
-name: git操作学习
+name: git
 
 type: elementary
 
+award:
+  emoji: 💻
+  
 modules:
   - id: "commit"
