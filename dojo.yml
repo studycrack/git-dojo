@@ -11,7 +11,3 @@ comparator: 888
 
 modules:
   - id: "git-basic"
-    icon: 0076_Golem
-
-  - id: "git-advanced"
-    icon: 0077_Ponyta
