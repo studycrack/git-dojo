@@ -3,4 +3,4 @@ name: 学习commit
 challenges:
 
   - id: "init-commit"
-    name: 从git init开始
+    name: git init
