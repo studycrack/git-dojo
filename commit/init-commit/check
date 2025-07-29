@@ -13,6 +13,21 @@ if [ ! -d .git ]; then
   exit 1
 fi
 
+
+echo "현재 작업 디렉터리: $(pwd)"
+echo "ls -l:"
+ls -l
+echo "git status:"
+git status
+echo "git rev-parse HEAD:"
+git rev-parse --verify HEAD
+
+echo "sudo -u hacker ls -l:"
+sudo -u hacker ls -l
+
+echo "sudo -u hacker git rev-parse HEAD:"
+sudo -u hacker git rev-parse --verify HEAD
+
 # 检查是否至少有一次提交
 if ! sudo -u hacker git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 123123!"
