@@ -22,9 +22,6 @@ git status
 echo "git rev-parse HEAD:"
 git rev-parse --verify HEAD
 
-echo "sudo -u hacker ls -l:"
-sudo -u hacker ls -l
-
 # 检查是否至少有一次提交
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 没有提交记录!"
