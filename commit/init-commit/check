@@ -1,4 +1,4 @@
-#!/usr/bin/exec-suid -- /bin/bash -p
+#!/bin/bash
 
 set -e
 
