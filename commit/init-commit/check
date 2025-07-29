@@ -16,9 +16,7 @@ fi
 # 检查是否至少有一次提交
 if ! sudo -u hacker git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 123123!"
-  exit 1
 fi
-
 
 # 检查是否至少有一次提交
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
