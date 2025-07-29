@@ -25,9 +25,6 @@ git rev-parse --verify HEAD
 echo "sudo -u hacker ls -l:"
 sudo -u hacker ls -l
 
-echo "sudo -u hacker git rev-parse HEAD:"
-sudo -u hacker git rev-parse --verify HEAD
-
 # 检查是否至少有一次提交
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 没有提交记录!"
