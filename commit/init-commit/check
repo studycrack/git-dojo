@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/opt/pwn.college/bash
 
 set -e
 
@@ -7,33 +7,22 @@ cd /tmp/repo || {
   exit 1
 }
 
-# 检查 .git 目录
 if [ ! -d .git ]; then
   echo "[-] 未在 /tmp/repo 中初始化 Git 仓库!"
   exit 1
 fi
 
-
-echo "현재 작업 디렉터리: $(pwd)"
-echo "ls -l:"
-ls -l
-echo "git status:"
-git status
-echo "git rev-parse HEAD:"
-git rev-parse --verify HEAD
-
-# 检查是否至少有一次提交
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
   echo "[-] 没有提交记录!"
   exit 1
 fi
 
-# 检查 hello.txt 是否被跟踪
 if ! git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
   echo "[-] 未正确提交 hello.txt!"
   exit 1
 fi
 
-# 全部通过
 echo "[+] 检查通过! 下面是你的 flag:"
-cat /flag
+
+# exec-suid를 사용해 root 권한으로 /flag 읽기
+/usr/bin/exec-suid -- /bin/cat /flag
