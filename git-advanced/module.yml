@@ -1,11 +1,11 @@
-name: Git 进阶操作
+name: Advanced Git Operations
 
 challenges:
   - id: "filter-branch"
-    name: 清理敏感文件
+    name: Remove Sensitive Files
 
   - id: "cherry-pick"
-    name: 迁移提交记录
+    name: Transfer Commits
 
   - id: "bisect"
-    name: 定位代码bug引入
+    name: Locate Bug Introduction
