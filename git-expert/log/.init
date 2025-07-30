@@ -1,0 +1,109 @@
+#!/opt/pwn.college/bash
+
+# Ensure git is installed
+if ! command -v git >/dev/null 2>&1; then
+  apt update && apt install -y git
+fi
+
+bash <<'EOF'
+
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+# Define authors and emails
+authors=("Alice" "Bob" "Charlie" "pwnuser")
+emails=("alice@example.com" "bob@example.com" "charlie@example.com" "pwn@hust.edu.cn")
+
+# Common commit prefixes
+prefixes=("update" "refactor" "add" "remove" "improve" "clean" "change" "optimize" "rework")
+
+# Common commit suffixes
+suffixes=("" "WIP" "quick fix" "final" "test" "minor" "urgent")
+
+# Initial commit (main branch, May 2025)
+echo "Initial content" > README.md
+git config user.name "${authors[0]}"
+git config user.email "${emails[0]}"
+git add README.md && git commit --date="2025-05-01T10:00:00" -m "Initial commit"
+
+# Create branches: dev, feature
+git branch dev
+git branch feature
+
+# Commit counter
+commit_count=1
+
+# Correct answers: commits to be inserted
+special_dates=("2025-05-30T06:00:00" "2025-06-10T14:00:00" "2025-06-25T09:30:00" "2025-07-05T16:20:00" "2025-08-18T11:45:00")
+special_msgs=("Bugfix in docker" "login bugfix" "BUGFIX: memory leak" "small bugfix in api" "BugFix: typo in docs")
+special_inserted=0
+
+# Make commits on different branches
+for branch in master dev feature; do
+  git checkout $branch
+
+  if [ "$branch" = "dev" ]; then
+    num_commits=80
+    # Randomly determine where to insert special commits on dev branch
+    insert_positions=($(shuf -i 1-$num_commits -n ${#special_dates[@]}))
+  elif [ "$branch" = "master" ]; then
+    num_commits=60
+  elif [ "$branch" = "feature" ]; then
+    num_commits=40
+  fi
+
+  for i in $(seq 1 $num_commits); do
+    # If on dev branch and current index matches an insert position, insert a special commit
+    if [ "$branch" = "dev" ] && [[ " ${insert_positions[*]} " == *" $i "* ]]; then
+      idx=$special_inserted
+      echo "Special data $idx" >> "special_file$idx"
+      git add "special_file$idx"
+      echo "${special_dates[$idx]}"
+      GIT_AUTHOR_DATE="${special_dates[$idx]}" GIT_COMMITTER_DATE="${special_dates[$idx]}" \
+      GIT_AUTHOR_NAME="${authors[$((idx % ${#authors[@]}))]}" GIT_AUTHOR_EMAIL="${emails[$((idx % ${#authors[@]}))]}" \
+      GIT_COMMITTER_NAME="${authors[$((idx % ${#authors[@]}))]}" GIT_COMMITTER_EMAIL="${emails[$((idx % ${#authors[@]}))]}" \
+      git commit -m "${special_msgs[$idx]}" > /dev/null 2>&1
+      special_inserted=$((special_inserted + 1))
+    else
+      # Create or modify a file
+      echo "Data $commit_count" >> "file${commit_count}"
+      git add "file${commit_count}"
+
+      # Random author
+      idx=$((RANDOM % ${#authors[@]}))
+
+      # Random date between May 1 and August 31, 2025
+      start_date=$(date -d "2025-05-01" +%s)
+      end_date=$(date -d "2025-08-31" +%s)
+      range=$((end_date - start_date))
+      random_offset=$(( (RANDOM << 15) | RANDOM ))
+      random_date=$(( start_date + random_offset % range ))
+      commit_date=$(date -d "@$random_date" +"%Y-%m-%dT%H:%M:%S")
+
+      prefix=${prefixes[$((RANDOM % ${#prefixes[@]}))]}
+      suffix=${suffixes[$((RANDOM % ${#suffixes[@]}))]}
+      msg="$prefix file $commit_count"
+      [ -n "$suffix" ] && msg="$msg - $suffix"
+
+      GIT_AUTHOR_DATE="$commit_date" GIT_COMMITTER_DATE="$commit_date" \
+      GIT_AUTHOR_NAME="${authors[$idx]}" GIT_AUTHOR_EMAIL="${emails[$idx]}" \
+      GIT_COMMITTER_NAME="${authors[$idx]}" GIT_COMMITTER_EMAIL="${emails[$idx]}" \
+      git commit -m "$msg" > /dev/null 2>&1
+
+      commit_count=$((commit_count + 1))
+    fi
+  done
+done
+
+git checkout dev
+
+# Generate expected answer file /tmp/expected_answer
+git log --grep="bugfix" -i --pretty=format:"%h|%an|%ad|%s" --date=format:"%Y-%m-%d" > /tmp/expected_answer
+
+EOF
+
+# Collected by root
+mv /tmp/expected_answer /expected_answer
+chown root:root /expected_answer
+chmod 400 /expected_answer
