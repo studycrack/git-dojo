@@ -10,8 +10,8 @@ CORRECT_COMMIT=$(bash -c '
   mkdir -p "$REPO"
   cd "$REPO"
   git init -q
-  git config user.name  "pwnuser"
-  git config user.email "pwn@college.edu"
+  git config user.name  "studycrack"
+  git config user.email "studycrack@korea.com"
   echo "The flag is safe" > answer.txt
   git add answer.txt
   git commit -q -m "Add correct answer"
