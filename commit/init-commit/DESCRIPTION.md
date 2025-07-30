@@ -1,15 +1,15 @@
-# Level 1: 初始化 Git 仓库并提交指定文件
+# Level 1: Git 저장소 초기화 및 지정된 파일 커밋하기
 
-欢迎来到第一关! 本关目标: 
+Git 첫 번째 단계에 오신 것을 환영합니다! 이 단계의 목표는 다음과 같습니다:
 
-1. 使用 git init 在 /tmp/repo 下新建一个 Git 仓库
-2. 配置 Git 用户信息, 例如: 
+1. git init을 사용하여 /tmp/repo 경로에 새로운 Git 저장소를 생성하세요.
+2. Git 사용자 정보를 설정하세요. 예를 들어:
 ```
     git config user.name "pwnuser"
-    git config user.email "pwn@hust.edu.cn"
+    git config user.email "pwnuser@gmail.com"
 ```
-3. 新建一个文件 hello.txt, 内容可以随意
-4. 使用 git add 添加该文件
-5. 使用 git commit 提交该文件, 提交信息也可以随意
+3. hello.txt라는 새 파일을 만들고, 내용은 자유롭게 작성하세요.
+4. git add 명령어로 해당 파일을 스테이지에 추가하세요.
+5. git commit을 사용해 커밋하세요. 커밋 메시지도 자유롭게 작성해도 됩니다.
 
-完成后运行 /challenge/check 即可获取 flag! 
+모든 작업이 완료되면 /challenge/check 명령을 실행하여 flag를 획득하세요!
