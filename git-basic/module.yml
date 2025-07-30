@@ -1,0 +1,14 @@
+name: Git 基础操作
+
+challenges:
+  - id: "init-commit"
+    name: 初始化与提交文件
+    level: 1
+
+  - id: "stage-area"
+    name: 从暂存区恢复文件
+    level: 2
+
+  - id: "commit-amend"
+    name: 修改最后一次提交
+    level: 2
