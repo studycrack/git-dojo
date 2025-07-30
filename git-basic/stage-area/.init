@@ -1,0 +1,32 @@
+#!/opt/pwn.college/bash
+
+sudo -u hacker bash <<'EOF'
+
+# Create and initialize a Git repository
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+# Set username and email
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+echo "Initial content" > readme.md
+git add readme.md
+git commit -m "Initial commit"
+
+random_str=$(head -c 16 /dev/urandom | base64)
+echo -e "# Auto-generated app\nprint(\"${random_str}\")" > /tmp/app.py
+cp /tmp/app.py /tmp/repo/app.py
+
+# Add to staging area, but **do not commit**
+git add app.py
+
+# Delete the file from the working directory (simulate accidental deletion)
+rm app.py
+
+EOF
+
+mv /tmp/app.py /expected_app.py
+chown root:root /expected_app.py
+chmod 400 /expected_app.py
