@@ -1,0 +1,45 @@
+#!/opt/pwn.college/bash
+
+# Record master HEAD for parent check
+MASTER_BASE=$(bash -c '
+REPO=/tmp/repo
+mkdir -p "$REPO"
+cd "$REPO"
+git init -q
+
+git config user.name  "pwnuser"
+git config user.email "pwn@college.edu"
+
+# --- Initial commit ---
+echo "Once upon a time" > story.txt
+git add story.txt
+git commit -q -m "Init story"
+git rev-parse HEAD
+')
+echo "$MASTER_BASE" > /challenge/master_base
+chown root:root /challenge/master_base
+chmod 400 /challenge/master_base
+
+# Save feature branch tip for validation
+FEATURE_HEAD=$(bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+git checkout -q -b feature
+echo "An exciting FEATURE begins" > story.txt      # Overwriting the same line
+git add story.txt
+git commit -q -m "Feature edit"
+git rev-parse HEAD
+')
+echo "$FEATURE_HEAD" > /challenge/feature_head
+chown root:root /challenge/feature_head
+chmod 400 /challenge/feature_head
+
+# --- Switch back to master and create conflicting line ---
+bash -c '
+REPO=/tmp/repo
+cd "$REPO"
+git checkout -q master
+echo "A quick PATCH on master" > story.txt         # Overwriting the same line again
+git add story.txt
+git commit -q -m "Patch on master"
+'
