@@ -1,34 +1,22 @@
-我们已经在 `/tmp/repo` 目录下初始化了一个 Git 仓库。
+# Git rebase를 사용해 선형 커밋 기록으로 브랜치 병합하기
 
-本关目标是让你学会使用 `git rebase` 实现线性提交历史的合并。
+이 단계의 목표는 다음과 같습니다:
+1. ```/tmp/repo``` 경로에 이미 초기화된 Git 저장소가 있습니다.
+2. 이 저장소에는 ```master```와 ```feature``` 두 브랜치가 있으며, ```feature``` 브랜치에는 중요한 기능 개발 커밋들이 존재합니다.
+3. ```feature``` 브랜치를 ```master```에 병합하되, 병합 커밋(merge commit) 없이 선형(linear) 커밋 히스토리를 요구합니다.
+4. 각 커밋은 개별적으로 보존되어야 하며, ```squash```하지 말아야 합니다.
 
-**背景：**
+과제: 
+1. ```/tmp/repo``` 디렉터리로 이동하세요.
+2. ```git checkout feature```로 ```feature``` 브랜치로 이동한 뒤, ```git rebase master```를 수행하세요.
+3. 이렇게 하면 ```feature``` 브랜치의 커밋들이 ```master``` 커밋 이후에 재배열됩니다.
+4. 이후 ```git checkout master```로 이동한 뒤, ```git merge feature```를 사용해 병합 커밋 없이 ```fast-forward``` 방식으로 병합하세요.
+5. 최종적으로 ```master``` 브랜치에는 ```feature``` 브랜치의 모든 커밋이 포함되어 있어야 하며, ```merge``` 커밋이 없어야 합니다.
 
-你是某团队的开发成员。大家最近在 `feature` 分支上完成了一项重要的新功能开发。现在，项目经理要求将 `feature` 分支上的更改合并回主分支 `master`，但有一个关键要求：提交历史必须保持线性，不能出现 merge commit！
+힌트:
+1. ```git log --oneline```을 사용해 커밋 기록이 선형(linear)인지 확인하세요.
+2. ```git log --merges``` 명령어로 ```merge``` 커밋이 있는지 확인할 수 있습니다. 출력이 없어야 정상입니다.
+3. ```git diff master feature```로 두 브랜치 간의 변경 내용을 비교할 수 있습니다.
+4. 충돌이 발생하면 수정 후 ```git rebase --continue```로 이어가세요.
 
-**具体任务：**
-
-* 进入 `/tmp/repo` 目录，仓库已经初始化，包含 `master` 和 `feature` 两个分支。
-
-* 将 `feature` 分支上的提交整合进 `master` 分支中：
-
-  * 必须保留每一次提交的信息（不能 squash）。
-
-  * 提交历史必须线性（不能出现合并节点）。
-
-* 最终你应处于 `master` 分支，并且该分支应包含原 `feature` 分支上的所有更改。
-
-**提示：**
-
-* 使用 `git rebase` 来整合分支内容；
-
-* 使用 `git log --oneline` 查看提交历史；
-
-* 使用 `git log --merges` 检查是否有合并提交；
-
-* 注意提交顺序与完整性；
-
-* 可用 `git diff master feature` 理解两个分支差异。
-
-完成后，运行： `/challenge/check` 即可验证并获得本关的 flag！
-
+모든 작업이 완료되면 ```/challenge/check``` 명령을 실행하여 flag를 획득하세요!
