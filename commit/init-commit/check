@@ -51,4 +51,4 @@ fi
 echo "[+] All checks passed! Here is your flag:"
 
 # Use exec-suid to read the flag file with root privileges
-/usr/bin/exec-suid -- /usr/bin/xxd /flag
+/usr/bin/exec-suid -- /usr/bin/base64 /flag
