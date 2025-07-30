@@ -1,1 +1,1 @@
-这个模块将向你介绍git专业操作
+This module will introduce you to expert Git operations.
