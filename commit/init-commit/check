@@ -7,44 +7,48 @@ cd /tmp/repo || {
   exit 1
 }
 
+# Mark /tmp/repo as a trusted Git directory to avoid "dubious ownership" error
+git config --global --add safe.directory /tmp/repo
+
+# Check if the Git repo is initialized
 if [ ! -d .git ]; then
-  echo "[-] Git repository not initialized in /tmp/repo!"
+  echo "[-] Git repository is not initialized in /tmp/repo!"
   exit 1
 fi
 
-# Debug: Check current Git status
+# Debug: show Git status
 echo "[*] Git status:"
 git status
 
-# Debug: Show current Git commit log (if any)
+# Debug: show Git log
 echo "[*] Git commit log:"
 if ! git log --oneline; then
-  echo "[-] git log failed. No commits might exist!"
+  echo "[-] git log failed. Possibly no commits exist!"
 fi
 
-# Debug: Check current user and permissions
+# Debug: show current user and permissions
 echo "[*] Current user: $(whoami)"
-echo "[*] .git permissions:"
+echo "[*] .git directory permissions:"
 ls -ld .git
 ls -l .git/HEAD
 
-# Debug: Show HEAD contents
-echo "[*] HEAD contents:"
+# Debug: show HEAD content
+echo "[*] HEAD content:"
 cat .git/HEAD || echo "[-] Cannot read .git/HEAD!"
 
-# Verify HEAD exists
+# Check if at least one commit exists
 if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
-  echo "[-] No commits found! Make sure you committed at least once (git commit)"
+  echo "[-] No commits found! Make sure you have committed at least once (git commit)"
   exit 1
 fi
 
-# Check if hello.txt is properly committed
+# Check if hello.txt is committed
 if ! git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
-  echo "[-] hello.txt not properly committed!"
+  echo "[-] hello.txt is not properly committed!"
   exit 1
 fi
 
-echo "[+] Check passed! Here is your flag:"
+echo "[+] All checks passed! Here is your flag:"
 
-# Use exec-suid to read /flag as root
+# Use exec-suid to read the flag file with root privileges
 /usr/bin/exec-suid -- /bin/cat /flag
