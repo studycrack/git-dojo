@@ -1,0 +1,31 @@
+#!/opt/pwn.college/bash
+
+if ! command -v git >/dev/null 2>&1; then
+  apt update && apt install -y git
+fi
+
+# Record the correct commit for verification
+CORRECT_COMMIT=$(bash -c '
+  REPO=/tmp/repo
+  mkdir -p "$REPO"
+  cd "$REPO"
+  git init -q
+  git config user.name  "pwnuser"
+  git config user.email "pwn@college.edu"
+  echo "The flag is safe" > answer.txt
+  git add answer.txt
+  git commit -q -m "Add correct answer"
+  git rev-parse HEAD  # Output directly
+')
+echo "$CORRECT_COMMIT" > /challenge/expected_commit
+chown root:root /challenge/expected_commit
+chmod 400 /challenge/expected_commit
+
+bash -c '
+# ---- Corrupt the version ----
+REPO=/tmp/repo
+cd "$REPO"
+echo "Oops, overwritten!" > answer.txt
+git add answer.txt
+git commit -q -m "Accidentally overwrite answer"
+'
