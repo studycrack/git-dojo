@@ -1,0 +1,26 @@
+#!/bin/bash
+
+sudo -u hacker bash <<'EOF'
+# Initialize the repository
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+# Git configuration
+git config user.name "pwnuser"
+git config user.email "pwn@hust.edu.cn"
+
+# Add initial file and commit three times
+echo "Line 1" > log.txt
+git add log.txt
+git commit -m "Initial commit"
+
+echo "Line 2" >> log.txt
+git add log.txt
+git commit -m "Add line 2"
+
+echo "Line 3" >> log.txt
+git add log.txt
+git commit -m "Add line 3"
+
+EOF
