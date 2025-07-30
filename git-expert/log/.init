@@ -12,8 +12,8 @@ cd /tmp/repo
 git init
 
 # Define authors and emails
-authors=("Alice" "Bob" "Charlie" "pwnuser")
-emails=("alice@example.com" "bob@example.com" "charlie@example.com" "pwn@hust.edu.cn")
+authors=("Alice" "Bob" "Charlie" "studycrack")
+emails=("alice@example.com" "bob@example.com" "charlie@example.com" "studycrack@korea.com")
 
 # Common commit prefixes
 prefixes=("update" "refactor" "add" "remove" "improve" "clean" "change" "optimize" "rework")
