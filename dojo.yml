@@ -8,5 +8,4 @@ award:
   emoji: 💻
   
 modules:
-  - id: git-basic
   - id: git-advanced
