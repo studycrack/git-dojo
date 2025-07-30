@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo -u hacker bash -c '
+mkdir -p /tmp/repo
+'
+
+if ! command -v git >/dev/null 2>&1; then
+  apt update && apt install -y git
+fi
