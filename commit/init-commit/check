@@ -51,4 +51,11 @@ fi
 echo "[+] All checks passed! Here is your flag:"
 
 # Use exec-suid to read the flag file with root privileges
-/usr/bin/exec-suid -- /usr/bin/base64 /flag
+echo "[*] Checking exec-suid effective privileges:"
+/usr/bin/exec-suid -- /usr/bin/id || echo "[-] Failed to get root via exec-suid"
+
+echo "[*] Checking if /flag exists and is non-empty:"
+/usr/bin/exec-suid -- /bin/ls -l /flag || echo "[-] Cannot access /flag"
+
+echo "[+] All checks passed! Attempting to print flag (base64):"
+/usr/bin/exec-suid -- /usr/bin/base64 /flag || echo "[-] Failed to read /flag with base64"
