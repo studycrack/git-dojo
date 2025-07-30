@@ -1,0 +1,37 @@
+#!/opt/pwn.college/bash
+
+# 检查 /tmp/repo 是否存在且为目录
+if [ ! -d /tmp/repo ]; then
+    echo "[-] 不要删除 /tmp/repo 文件夹！"
+    exit 1
+fi
+
+cd /tmp/repo
+
+# 检查当前目录是否为 Git 仓库
+if [ ! -d .git ]; then
+    echo "[-] 不要删除 .git 文件夹！"
+    exit 1
+fi
+
+# 检查 passwords.txt 是否仍存在于提交历史中
+if sudo -u hacker git log --all -- passwords.txt | grep -q "commit"; then
+    echo "[-] passwords.txt 仍存在于提交历史中！"
+    exit 1
+fi
+
+# 检查 passwords.txt 是否仍存在于工作区
+if sudo -u hacker test -f passwords.txt; then
+    echo "[-] passwords.txt 仍存在于工作区！"
+    exit 1
+fi
+
+# 检查仓库是否包含至少一次提交（避免空仓库）
+if [ -z "$(sudo -u hacker git log -1)" ]; then
+    echo "[-] 仓库提交历史为空！"
+    exit 1
+fi
+
+# 所有检查通过，显示 flag
+echo "[+] 敏感文件已从历史中移除！这是你的flag: "
+cat /flag
