@@ -27,7 +27,7 @@ if ! diff -q app.py /expected_app.py >/dev/null; then
 fi
 
 # Check if app.py has been successfully committed
-if ! sudo -u hacker git log --pretty=format: --name-only | grep -q "^app.py$"; then
+if ! git log --pretty=format: --name-only | grep -q "^app.py$"; then
     echo "[-] app.py was not successfully committed!"
     exit 1
 fi
