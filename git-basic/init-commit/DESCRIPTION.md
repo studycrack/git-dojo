@@ -5,8 +5,8 @@ Git 첫 번째 단계에 오신 것을 환영합니다! 이 단계의 목표는 
 1. git init을 사용하여 /tmp/repo 경로에 새로운 Git 저장소를 생성하세요.
 2. Git 사용자 정보를 설정하세요. 예를 들어:
 ```
-    git config user.name "pwnuser"
-    git config user.email "pwnuser@gmail.com"
+    git config user.name "studycrack"
+    git config user.email "studycrack@korea.com"
 ```
 3. hello.txt라는 새 파일을 만들고, 내용은 자유롭게 작성하세요.
 4. git add 명령어로 해당 파일을 스테이지에 추가하세요.
