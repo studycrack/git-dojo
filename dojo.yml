@@ -5,7 +5,7 @@ id: git-study
 type: elementary
 
 award:
-  belt: blue
+  emoji: 😀
   
 modules:
   - id: git-basic
