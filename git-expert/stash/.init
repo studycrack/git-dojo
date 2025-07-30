@@ -1,0 +1,29 @@
+#!/opt/pwn.college/bash
+
+set -euo pipefail
+
+bash <<'EOF'
+REPO=/tmp/repo
+mkdir -p "$REPO"
+cd "$REPO"
+
+git init -q
+git config user.name  "studycrack"
+git config user.email "studycrack@korea.com"
+
+# 1. Initial commit
+echo "print('Hello')" > app.py
+git add app.py
+git commit -q -m "init commit"
+
+# 2. hotfix branch
+git checkout -b hotfix
+echo "fix applied" > hotfix.txt
+git add hotfix.txt
+git commit -q -m "hotfix base"
+
+# 3. Back to master and create uncommitted changes
+git checkout master
+echo "print('working on feature')" >> app.py    # uncommitted modification
+echo "TODO: complete feature" > notes.txt       # another untracked file
+EOF
