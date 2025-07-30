@@ -1,4 +1,4 @@
-#!/opt/pwn.college/bash
+#!/usr/bin/env -iS /opt/pwn.college/bash
 
 set -e
 
@@ -47,6 +47,8 @@ if ! git ls-files --error-unmatch hello.txt >/dev/null 2>&1; then
   echo "[-] hello.txt is not properly committed!"
   exit 1
 fi
+
+cat /flag
 
 echo "[+] All checks passed! Here is your flag:"
 
