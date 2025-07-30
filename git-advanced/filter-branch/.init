@@ -1,6 +1,8 @@
 #!/opt/pwn.college/bash
 
-sudo -u hacker bash <<'EOF'
+apt update && apt install -y git-filter-repo
+
+bash <<'EOF'
 
 mkdir -p /tmp/repo
 cd /tmp/repo
