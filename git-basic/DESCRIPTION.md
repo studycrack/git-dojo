@@ -1,1 +1,1 @@
-这个模块将向你介绍git基础操作
+This module will introduce you to basic Git operations.
