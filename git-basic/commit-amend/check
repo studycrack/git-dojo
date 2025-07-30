@@ -2,16 +2,16 @@
 
 cd /tmp/repo
 
-# 检查是否只有 3 次提交（防止新提交被添加）
-COMMIT_COUNT=$(sudo -u hacker git rev-list --count HEAD)
+# Check if there are exactly 3 commits (to ensure no extra commits were added)
+COMMIT_COUNT=$(git rev-list --count HEAD)
 if [ "$COMMIT_COUNT" -ne 3 ]; then
-    echo "[-] 提交数量不正确，应该只有 3 次提交。"
+    echo "[-] Incorrect number of commits. There should be exactly 3 commits."
     exit 1
 fi
 
-# 检查最后一个提交中是否包含 fix 修改（验证内容修改过并合并了）
-if ! sudo -u hacker git show HEAD | grep -q "Line 3 - fixed typo"; then
-    echo "[-] 你没有正确修改 Line 3 的内容，或没有合并到最后一次提交中。"
+# Check if the last commit contains the fix (to verify Line 3 was modified and amended)
+if ! git show HEAD | grep -q "Line 3 - fixed typo"; then
+    echo "[-] Line 3 was not correctly modified, or the changes were not merged into the last commit."
     exit 1
 fi
 
@@ -21,10 +21,9 @@ Line 3 - fixed typo"
 actual=$(cat /tmp/repo/log.txt)
 
 if [[ "$actual" != "$expected" ]]; then
-    echo "[-] log.txt 内容不正确，请确保提交内容正确"
+    echo "[-] The content of log.txt is incorrect. Please ensure the commit content is correct."
     exit 1
 fi
 
-
-echo "[+] 合并提交成功！这是你的 flag："
+echo "[+] Commit amended successfully! Here is your flag:"
 cat /flag
