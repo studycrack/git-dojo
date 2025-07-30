@@ -8,8 +8,8 @@ cd /tmp/repo
 git init
 
 # Set username and email
-git config user.name "pwnuser"
-git config user.email "pwn@hust.edu.cn"
+git config user.name "studycrack"
+git config user.email "studycrack@korea.com"
 
 echo "Initial content" > readme.md
 git add readme.md
