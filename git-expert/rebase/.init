@@ -1,0 +1,26 @@
+#!/opt/pwn.college/bash
+
+bash <<'EOF'
+mkdir -p /tmp/repo
+cd /tmp/repo
+git init
+
+git config user.name "studycrack"
+git config user.email "studycrack@korea.com"
+
+echo "Initial content" > readme.md
+git add readme.md
+git commit -m "Initial commit"
+
+echo "first part" > part1.txt
+git add part1.txt
+git commit -m "add part1"
+
+echo "second part" > part2.txt
+git add part2.txt
+git commit -m "add part2"
+
+echo "third part" > part3.txt
+git add part3.txt
+git commit -m "add part3"
+EOF
