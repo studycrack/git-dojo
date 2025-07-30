@@ -1,4 +1,4 @@
-name: Advanced Git Operations
+name: Git Advanced
 
 challenges:
   - id: "filter-branch"
