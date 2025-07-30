@@ -1,35 +1,36 @@
 #!/opt/pwn.college/bash
 
-# 检查 /tmp/repo 是否存在且为目录
+# Check if /tmp/repo exists and is a directory
 if [ ! -d /tmp/repo ]; then
-    echo "[-] 不要删除 /tmp/repo 文件夹！"
+    echo "[-] Do not delete the /tmp/repo folder!"
     exit 1
 fi
 
 cd /tmp/repo
 
-# 检查 .git 是否存在
+# Check if .git directory exists
 if [ ! -d .git ]; then
-    echo "[-] 不要删除 .git 文件夹！"
+    echo "[-] Do not delete the .git folder!"
     exit 1
 fi
 
-# 检查当前工作区是否包含 app.py
+# Check if app.py exists in the working directory
 if [ ! -f app.py ]; then
-    echo "[-] app.py 不在工作区中！需要从暂存区恢复后再提交。"
+    echo "[-] app.py is missing from the working directory! You need to restore it from the staging area and commit it."
     exit 1
 fi
 
+# Check if the content of app.py matches the expected version
 if ! diff -q app.py /expected_app.py >/dev/null; then
-    echo "[-] app.py 文件内容不正确，不能随便伪造！必须从暂存区恢复原始版本。"
+    echo "[-] The contents of app.py are incorrect. You can't fake it! You must restore the original version from the staging area."
     exit 1
 fi
 
-# 检查是否提交了包含 app.py 的提交
+# Check if app.py has been successfully committed
 if ! sudo -u hacker git log --pretty=format: --name-only | grep -q "^app.py$"; then
-    echo "[-] 没有成功提交 app.py！"
+    echo "[-] app.py was not successfully committed!"
     exit 1
 fi
 
-echo "[+] 干得好！你成功恢复并提交了文件！这是你的 flag："
+echo "[+] Well done! You successfully restored and committed the file! Here is your flag:"
 cat /flag
