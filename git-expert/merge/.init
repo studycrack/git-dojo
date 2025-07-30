@@ -7,8 +7,8 @@ mkdir -p "$REPO"
 cd "$REPO"
 git init -q
 
-git config user.name  "pwnuser"
-git config user.email "pwn@college.edu"
+git config user.name  "studycrack"
+git config user.email "studycrack@korea.com"
 
 # --- Initial commit ---
 echo "Once upon a time" > story.txt
