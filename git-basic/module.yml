@@ -1,14 +1,11 @@
-name: Git 基础操作
+name: Git Basics
 
 challenges:
   - id: "init-commit"
-    name: 初始化与提交文件
-    level: 1
+    name: Initialize and Commit Files
 
   - id: "stage-area"
-    name: 从暂存区恢复文件
-    level: 2
+    name: Restore Files from Staging Area
 
   - id: "commit-amend"
-    name: 修改最后一次提交
-    level: 2
+    name: Amend the Last Commit
