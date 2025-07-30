@@ -1,0 +1,55 @@
+#!/opt/pwn.college/bash
+set -euo pipefail
+
+# 1. Generate creation script content (run as hacker user)
+cat > /tmp/gen_repo.sh <<'EOSCRIPT'
+#!/bin/bash
+set -euo pipefail
+
+REPO=/tmp/repo
+mkdir -p "$REPO"
+cd "$REPO"
+git init -q
+git config user.name  "studycrack"
+git config user.email "studycrack@korea.com"
+
+prefixes=("update" "refactor" "add" "remove" "improve" "clean" "change" "optimize" "rework")
+suffixes=("" "note.txt" "test.txt")
+
+TOTAL_COMMITS=10
+RESET_BACK_N=$((2 + RANDOM % 5))
+SECRET_AT=$((TOTAL_COMMITS - RANDOM % RESET_BACK_N))
+
+declare -a commits
+
+for ((i=0; i<TOTAL_COMMITS; i++)); do
+  if [[ "$i" -eq "$SECRET_AT" ]]; then
+    echo "The flag is safe" > secret.txt
+    git add secret.txt
+    git commit -q -m "add secret.txt"
+    git rev-parse HEAD > /tmp/flag_commit
+  else
+    file="file_${i}.txt"
+    echo "$RANDOM" > "$file"
+    git add "$file"
+    prefix=${prefixes[$RANDOM % ${#prefixes[@]}]}
+    suffix=${suffixes[$RANDOM % ${#suffixes[@]}]}
+    git commit -q -m "$prefix $suffix"
+  fi
+  commits+=("$(git rev-parse HEAD)")
+done
+
+RESET_TARGET=${commits[$((TOTAL_COMMITS - RESET_BACK_N - 1))]}
+git reset --hard "$RESET_TARGET"
+EOSCRIPT
+
+# 2. Set permissions + execute
+chmod +x /tmp/gen_repo.sh
+bash /tmp/gen_repo.sh
+rm /tmp/gen_repo.sh
+
+FLAG_COMMIT=$(cat /tmp/flag_commit)
+rm /tmp/flag_commit
+echo "$FLAG_COMMIT" > /challenge/flag_commit
+chown root:root /challenge/flag_commit
+chmod 400 /challenge/flag_commit
