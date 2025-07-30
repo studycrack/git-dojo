@@ -13,8 +13,8 @@ TARGET=$(bash -c '
 REPO=/tmp/repo
 git init -q "$REPO"
 cd "$REPO"
-git config user.name  "pwnuser"
-git config user.email "pwnuser@korea.com"
+git config user.name  "studycrack"
+git config user.email "studycrack@korea.com"
 
 echo "push-me" > important.txt
 git add important.txt
