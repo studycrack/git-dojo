@@ -1,6 +1,6 @@
 name: Git Learning
 
-id: git-basic
+id: git-study
 
 type: elementary
 
@@ -8,5 +8,5 @@ award:
   emoji: 💻
   
 modules:
-  - id: git-advanced
   - id: git-basic
+  - id: git-advanced
