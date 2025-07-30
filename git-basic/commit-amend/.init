@@ -7,8 +7,8 @@ cd /tmp/repo
 git init
 
 # Git configuration
-git config user.name "pwnuser"
-git config user.email "pwn@hust.edu.cn"
+git config user.name "studycrack"
+git config user.email "studycrack@korea.com"
 
 # Add initial file and commit three times
 echo "Line 1" > log.txt
