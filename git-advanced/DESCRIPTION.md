@@ -1,1 +1,1 @@
-这个模块将向你介绍git进阶操作
+This module will introduce you to advanced Git operations.
