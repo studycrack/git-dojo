@@ -4,50 +4,51 @@ REPO_DIR="/tmp/repo"
 TARGET_FILE="app.py"
 EXPECTED_FILE="/expected_app.py"
 
-# 确保仓库存在
+# Ensure the repository exists
 if [ ! -d "$REPO_DIR/.git" ]; then
-    echo "[-] Git 仓库不存在，或 .git 文件夹被删除"
+    echo "[-] Git repository does not exist, or the .git folder has been deleted"
     exit 1
 fi
 
 cd "$REPO_DIR"
 
-# 检查当前分支是 master
-current_branch=$(sudo -u hacker git symbolic-ref --short HEAD)
+# Check if current branch is master
+current_branch=$(git symbolic-ref --short HEAD)
 if [[ "$current_branch" != "master" ]]; then
-    echo "[-] 当前不在 master 分支，请切换回 master 分支"
+    echo "[-] You are not on the master branch. Please switch back to the master branch"
     exit 1
 fi
 
-# 检查是否有 merge commit（不允许）
-if sudo -u hacker git log --oneline --merges | grep -q .; then
-    echo "[-] 检测到 merge commit，本关仅允许 cherry-pick！"
+# Check for merge commits (not allowed)
+if git log --oneline --merges | grep -q .; then
+    echo "[-] Merge commit detected. Only cherry-pick is allowed in this level!"
     exit 1
 fi
 
-# 检查是否包含正确的提交（通过提交信息匹配）
-if ! sudo -u hacker git log --oneline | grep -q "feat: add run() function"; then
-    echo "[-] 未找到包含 run() 函数的提交，请确保正确 cherry-pick"
+# Check for the correct commit (by commit message)
+if ! git log --oneline | grep -q "feat: add run() function"; then
+    echo "[-] Could not find the commit that adds the run() function. Please cherry-pick the correct commit"
     exit 1
 fi
 
-# 检查 app.py 内容是否匹配
+# Check that app.py matches expected content
 if ! diff -q "$TARGET_FILE" "$EXPECTED_FILE" > /dev/null; then
-    echo "[-] app.py 内容不符合预期，请正确 cherry-pick 目标提交"
+    echo "[-] app.py content does not match expected. Please correctly cherry-pick the target commit"
     exit 1
 fi
 
-# 检查是否有未提交改动
-if [ -n "$(sudo -u hacker git status --porcelain)" ]; then
-    echo "[-] 仓库中有未提交的改动，请保持工作区干净"
+# Check for uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+    echo "[-] There are uncommitted changes in the repository. Please keep the working directory clean"
     exit 1
 fi
 
-commit_count=$(sudo -u hacker git rev-list --count HEAD)
+# Check that there are exactly 2 commits on master
+commit_count=$(git rev-list --count HEAD)
 if [ "$commit_count" -ne 2 ]; then
-    echo "[-] master 分支上的提交数量不是 2，不要使用 rebase 或其他操作"
+    echo "[-] The number of commits on the master branch is not 2. Do not use rebase or other operations"
     exit 1
 fi
 
-echo "[+] cherry-pick 操作成功，app.py 内容正确，这是你的 flag："
+echo "[+] Cherry-pick was successful and app.py is correct. Here is your flag:"
 cat /flag
