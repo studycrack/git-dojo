@@ -23,4 +23,7 @@ git commit -m "add part2"
 echo "third part" > part3.txt
 git add part3.txt
 git commit -m "add part3"
+
+sudo chown -R hacker:hacker /tmp/repo
+
 EOF
