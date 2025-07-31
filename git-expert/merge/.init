@@ -43,3 +43,5 @@ echo "A quick PATCH on master" > story.txt         # Overwriting the same line a
 git add story.txt
 git commit -q -m "Patch on master"
 '
+
+sudo chown -R hacker:hacker /tmp/repo
