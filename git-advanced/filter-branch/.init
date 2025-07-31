@@ -6,6 +6,8 @@ mkdir -p /tmp/repo
 cd /tmp/repo
 git init
 
+sudo chown -R hacker:hacker .git
+
 git config user.name "studycrack"
 git config user.email "studycrack@korea.com"
 
