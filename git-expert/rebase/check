@@ -2,27 +2,27 @@
 
 set -e
 
-# 检查 /tmp/repo 是否存在且为目录
+# Check if /tmp/repo exists and is a directory
 if [ ! -d /tmp/repo ]; then
-    echo "[-] 不要删除 /tmp/repo 文件夹！"
+    echo "[-] Do not delete the /tmp/repo directory!"
     exit 1
 fi
 
-commit_count=$(sudo -u hacker git rev-list --count HEAD)
+commit_count=$(git rev-list --count HEAD)
 
 if [ "$commit_count" -eq 2 ]; then
-    last_commit_files=$(sudo -u hacker git show --pretty="" --name-only HEAD)
+    last_commit_files=$(git show --pretty="" --name-only HEAD)
     if echo "$last_commit_files" | grep -q "part1.txt" \
        && echo "$last_commit_files" | grep -q "part2.txt" \
        && echo "$last_commit_files" | grep -q "part3.txt"; then
-        echo "[+] 恭喜！提交历史已整理成功！这里是你的 flag："
+        echo "[+] Congratulations! The commit history has been successfully cleaned up! Here is your flag:"
         cat /flag
         exit 0
     else
-        echo "[-] 最后一次提交缺少必须的文件！"
+        echo "[-] The last commit is missing required files!"
         exit 1
     fi
 else
-    echo "[-] 提交总数不是 2 (必须是 initial commit + 合并后的提交)!"
+    echo "[-] The total number of commits is not 2 (must be initial commit + merge commit)!"
     exit 1
 fi
