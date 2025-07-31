@@ -107,3 +107,5 @@ EOF
 mv /tmp/expected_answer /expected_answer
 chown root:root /expected_answer
 chmod 400 /expected_answer
+
+sudo chown -R hacker:hacker /tmp/repo
