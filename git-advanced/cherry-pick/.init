@@ -49,4 +49,7 @@ chmod 400 /expected_app.py
 bash <<'EOF'
 cd /tmp/repo
 git checkout master
+
+sudo chown -R hacker:hacker /tmp/repo
+
 EOF
