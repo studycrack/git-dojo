@@ -53,3 +53,5 @@ rm /tmp/flag_commit
 echo "$FLAG_COMMIT" > /challenge/flag_commit
 chown root:root /challenge/flag_commit
 chmod 400 /challenge/flag_commit
+
+sudo chown -R hacker:hacker /tmp/repo
