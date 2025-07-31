@@ -1,20 +1,20 @@
 #!/opt/pwn.college/bash
+
 set -e
 
-repo=$PWD                       # 必须在仓库目录运行
+repo=$PWD                       # Must be run inside the repository directory
 expected=$(cat /challenge/expected_commit)
 current=$(git rev-parse HEAD)
 
 if [[ "$current" == "$expected" ]]; then
   if grep -q "The flag is safe" answer.txt; then
-    echo "[+] 恭喜！你成功回退到了正确版本。"
-    echo -n "你的 flag 是："
+    echo "[+] Congratulations! You have successfully reverted to the correct version."
+    echo -n "Your flag is: "
     cat /flag
     exit 0
   fi
 fi
 
-echo "[-] 还没有回到正确提交！"
-echo "(提示：git log 找到 commit，git checkout <hash>)"
+echo "[-] You are not yet at the correct commit!"
+echo "(Hint: use git log to find the commit, then git checkout <hash>)"
 exit 1
-
