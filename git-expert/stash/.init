@@ -26,4 +26,7 @@ git commit -q -m "hotfix base"
 git checkout master
 echo "print('working on feature')" >> app.py    # uncommitted modification
 echo "TODO: complete feature" > notes.txt       # another untracked file
+
+sudo chown -R hacker:hacker /tmp/repo
+
 EOF
