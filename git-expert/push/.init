@@ -30,3 +30,5 @@ chown root:root /challenge/target_commit
 chmod 400 /challenge/target_commit
 chown root:root /challenge/remote_path
 chmod 400 /challenge/remote_path
+
+sudo chown -R hacker:hacker /tmp/repo
