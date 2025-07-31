@@ -3,11 +3,8 @@
 bash <<'EOF'
 
 mkdir -p /tmp/repo
-sudo chown -R hacker:hacker /tmp/repo
 cd /tmp/repo
 git init
-
-sudo chown -R hacker:hacker /tmp/repo/.git
 
 git config user.name "studycrack"
 git config user.email "studycrack@korea.com"
