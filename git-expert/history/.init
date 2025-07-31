@@ -29,3 +29,5 @@ echo "Oops, overwritten!" > answer.txt
 git add answer.txt
 git commit -q -m "Accidentally overwrite answer"
 '
+
+sudo chown -R hacker:hacker /tmp/repo
