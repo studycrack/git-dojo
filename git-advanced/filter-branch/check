@@ -15,19 +15,19 @@ if [ ! -d .git ]; then
 fi
 
 # 检查 passwords.txt 是否仍存在于提交历史中
-if sudo -u hacker git log --all -- passwords.txt | grep -q "commit"; then
+if git log --all -- passwords.txt | grep -q "commit"; then
     echo "[-] passwords.txt 仍存在于提交历史中！"
     exit 1
 fi
 
 # 检查 passwords.txt 是否仍存在于工作区
-if sudo -u hacker test -f passwords.txt; then
+if test -f passwords.txt; then
     echo "[-] passwords.txt 仍存在于工作区！"
     exit 1
 fi
 
 # 检查仓库是否包含至少一次提交（避免空仓库）
-if [ -z "$(sudo -u hacker git log -1)" ]; then
+if [ -z "$(git log -1)" ]; then
     echo "[-] 仓库提交历史为空！"
     exit 1
 fi
