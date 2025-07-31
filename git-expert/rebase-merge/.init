@@ -32,4 +32,6 @@ echo "file2" >> file2.txt
 git add file2.txt
 git commit -m "Update file2 on master"
 
+sudo chown -R hacker:hacker /tmp/repo
+
 EOF
