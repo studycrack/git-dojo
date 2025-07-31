@@ -1,19 +1,19 @@
 #!/opt/pwn.college/bash
+
 set -e
 
 expected=$(cat /challenge/flag_commit)
 current=$(git rev-parse HEAD)
 
-# 允许 HEAD 指向目标提交（或处于该提交之上）
+# Allow HEAD to point to the target commit or be a descendant of it
 if [[ "$current" == "$expected" ]] || git merge-base --is-ancestor "$expected" HEAD; then
   if [[ -f secret.txt && $(cat secret.txt) == "The flag is safe" ]]; then
-    echo "[+] 成功恢复丢失提交！"
-    echo -n "你的 flag 是："
+    echo "[+] Successfully restored the lost commit!"
+    echo -n "Your flag is: "
     cat /flag
     exit 0
   fi
 fi
 
-echo "[-] 还未恢复正确提交，请使用 git reflog 查找并 checkout 或 reset 到正确版本"
+echo "[-] You have not restored the correct commit yet. Please use git reflog to find and checkout or reset to the correct version."
 exit 1
-
