@@ -28,4 +28,6 @@ echo "More content" >> readme.md
 git add readme.md
 git commit -m "Update readme"
 
+sudo chown -R hacker:hacker /tmp/repo
+
 EOF
