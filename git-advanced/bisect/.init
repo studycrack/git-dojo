@@ -72,3 +72,5 @@ rm /tmp/bug_commit
 echo "$BUG" > /challenge/bug_commit
 chown root:root /challenge/bug_commit
 chmod 400 /challenge/bug_commit
+
+sudo chown -R hacker:hacker /tmp/repo
