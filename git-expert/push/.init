@@ -32,3 +32,4 @@ chown root:root /challenge/remote_path
 chmod 400 /challenge/remote_path
 
 sudo chown -R hacker:hacker /tmp/repo
+sudo chown -R hacker:hacker /tmp/remote.git
