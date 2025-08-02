@@ -2,6 +2,8 @@
 
 cd /tmp/repo
 
+git config --global --add safe.directory /tmp/repo
+
 # Check if there are exactly 3 commits (to ensure no extra commits were added)
 COMMIT_COUNT=$(git rev-list --count HEAD)
 if [ "$COMMIT_COUNT" -ne 3 ]; then
