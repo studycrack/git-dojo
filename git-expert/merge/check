@@ -1,6 +1,8 @@
 #!/opt/pwn.college/bash
 set -e
-repo=$PWD    
+repo=$PWD 
+
+git config --global --add safe.directory /tmp/repo
 
 # 1) story.txt must contain both key phrases
 grep -q "A quick PATCH on master"    story.txt || { echo "[-] Missing PATCH line"; exit 1; }
