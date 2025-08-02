@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Generate a user-specific or random repo path
-REPO="/tmp/repo_$RANDOM"
-
-# Save the path so that check script can find it later
-echo "$REPO" > /tmp/repo_path
-
 sudo -u hacker bash -c "
-  mkdir -p '$REPO'
+  mkdir -p /tmp/repo
 "
