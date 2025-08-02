@@ -2,13 +2,11 @@
 
 set -e
 
-REPO=$(cat /tmp/repo_path)
-
-cd "$REPO"
+git config --global --add safe.directory /tmp/repo
 
 # Check if /tmp/repo exists and is a directory
-if [ ! -d "$REPO" ]; then
-    echo "[-] $REPO not found!"
+if [ ! -d /tmp/repo ]; then
+    echo "[-] Do not delete the /tmp/repo folder!"
     exit 1
 fi
 
