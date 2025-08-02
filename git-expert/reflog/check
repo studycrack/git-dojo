@@ -2,6 +2,8 @@
 
 set -e
 
+git config --global --add safe.directory /tmp/repo
+
 expected=$(cat /challenge/flag_commit)
 current=$(git rev-parse HEAD)
 
