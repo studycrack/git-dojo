@@ -4,6 +4,8 @@ REPO_DIR="/tmp/repo"
 TARGET_FILE="app.py"
 EXPECTED_FILE="/expected_app.py"
 
+git config --global --add safe.directory /tmp/repo
+
 # Ensure the repository exists
 if [ ! -d "$REPO_DIR/.git" ]; then
     echo "[-] Git repository does not exist, or the .git folder has been deleted"
