@@ -2,6 +2,8 @@
 
 set -e
 
+git config --global --add safe.directory /tmp/repo
+
 repo=$PWD                       # Must be run inside the repository directory
 expected=$(cat /challenge/expected_commit)
 current=$(git rev-parse HEAD)
