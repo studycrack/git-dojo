@@ -2,6 +2,8 @@
 
 set -e
 
+git config --global --add safe.directory /tmp/repo
+
 repo=$PWD
 expected=$(cat /challenge/target_commit)
 remote_url=$(cat /challenge/remote_path)
