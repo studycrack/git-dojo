@@ -1,5 +1,7 @@
 #!/opt/pwn.college/bash
 
+git config --global --add safe.directory /tmp/repo
+
 cd /tmp/repo
 
 # Must be on the master branch
