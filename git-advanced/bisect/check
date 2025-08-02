@@ -1,6 +1,8 @@
 #!/opt/pwn.college/bash
 set -e
 
+git config --global --add safe.directory /tmp/repo
+
 found=$(git rev-parse HEAD)
 expected=$(cat /challenge/bug_commit)
 
