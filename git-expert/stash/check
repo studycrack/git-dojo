@@ -1,6 +1,9 @@
 #!/opt/pwn.college/bash
 
 set -euo pipefail
+
+git config --global --add safe.directory /tmp/repo
+
 repo=$PWD   
 
 # 1. Must be on the master branch
