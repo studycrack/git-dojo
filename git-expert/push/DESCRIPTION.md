@@ -13,10 +13,12 @@
 ```
 git remote add origin /path/to/remote/repo
 ```
+
 *  ```git push -u origin master``` 명령어를 사용하여 현재 브랜치를 원격 저장소로 푸시하고, 추적(upstream) 설정을 완료하세요.
 
 힌트:
 *  원격 저장소 경로가 올바르지 않으면 오류가 발생합니다. 정확한 경로를 확인하거나, ```file://``` 접두사를 사용하는 것도 고려하세요.
+*  원격 저장소 경로 : ```/tmp/remote-repo.git```
 *  PUSH 후 다음과 같은 메시지가 출력되어야 합니다:
 ```
 On branch master, your branch is up to date with 'origin/master'.
