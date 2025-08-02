@@ -1,5 +1,7 @@
 #!/opt/pwn.college/bash
 
+git config --global --add safe.directory /tmp/repo
+
 # Check if /tmp/repo exists and is a directory
 if [ ! -d /tmp/repo ]; then
     echo "[-] Do not delete the /tmp/repo folder!"
