@@ -3,6 +3,10 @@
 set -e
 
 REPO=$(cat /tmp/repo_path)
+
+git config --global --add safe.directory "$REPO"
+
+
 cd "$REPO"
 
 # Check if /tmp/repo exists and is a directory
