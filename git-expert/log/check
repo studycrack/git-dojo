@@ -1,5 +1,7 @@
 #!/opt/pwn.college/bash
 
+git config --global --add safe.directory /tmp/repo
+
 if [ -f /tmp/answer ]; then
     if diff /tmp/answer /expected_answer >/dev/null; then
         echo "[+] Correct! Here is your flag:"
