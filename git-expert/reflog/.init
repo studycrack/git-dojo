@@ -45,11 +45,10 @@ RESET_TARGET=${commits[$((TOTAL_COMMITS - RESET_BACK_N - 1))]}
 git reset --hard "$RESET_TARGET"
 EOSCRIPT
 
-sudo chown -R hacker:hacker /tmp/repo
-
 # 2. Set permissions + execute
 chmod +x /tmp/gen_repo.sh
 bash /tmp/gen_repo.sh
+sudo chown -R hacker:hacker /tmp/repo
 rm /tmp/gen_repo.sh
 
 FLAG_COMMIT=$(cat /tmp/flag_commit)
@@ -57,5 +56,3 @@ rm /tmp/flag_commit
 echo "$FLAG_COMMIT" > /challenge/flag_commit
 chown root:root /challenge/flag_commit
 chmod 400 /challenge/flag_commit
-
-sudo chown -R hacker:hacker /tmp/repo
