@@ -1,4 +1,5 @@
 #!/opt/pwn.college/bash
+
 set -euo pipefail
 
 # 1. Generate creation script content (run as hacker user)
@@ -8,6 +9,7 @@ set -euo pipefail
 
 REPO=/tmp/repo
 mkdir -p "$REPO"
+
 cd "$REPO"
 git init -q
 git config user.name  "studycrack"
@@ -42,6 +44,8 @@ done
 RESET_TARGET=${commits[$((TOTAL_COMMITS - RESET_BACK_N - 1))]}
 git reset --hard "$RESET_TARGET"
 EOSCRIPT
+
+sudo chown -R hacker:hacker /tmp/repo
 
 # 2. Set permissions + execute
 chmod +x /tmp/gen_repo.sh
